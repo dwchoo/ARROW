@@ -1,0 +1,185 @@
+{% load static %}
+<!doctype html>
+<html>
+    <script type="text/javascript" src="{% static 'js/index.js' %}"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+    <head>
+        <title>
+            ARROW - Allele-specific Recombined sgRNA design for Reduced Off-target With computational profiling
+        </title>
+        <style>
+            /* Style for the progress bar */
+            #progress-container {
+                width: 200px; /* Fixed width for the container */
+                background-color: #ddd;
+                margin-top: 10px;
+                display: none; /* Hide initially */
+            }
+
+            #progress-bar {
+                width: 0%;
+                height: 30px;
+                background-color: #4CAF50;
+                text-align: center;
+                line-height: 30px;
+                color: white;
+                transition: width 0.3s ease-in-out; /* Add a smooth transition */
+            }
+
+            #progress-info {
+                margin-top: 5px;
+                display: none; /* Hide initially */
+            }
+            /* Style for the upload message */
+            #upload-message {
+                margin-top: 10px;
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <!--<form action="{% url 'cas_offinder:progress' %}" method="POST">-->
+            <form action="{% url 'cas_offinder:progress' %}" method="POST" enctype="multipart/form-data" id="upload-form">
+                {% csrf_token %}
+                <div>
+                    <h1>ARROW</h1>
+                    <h4>- Allele-specific Recombined sgRNA design for Reduced Off-target With computational profiling</h4>
+                </div>
+                <div class="container">
+                    <div class="row row-align">
+                        <div class="col-md-4" id="JobTitle">
+                            <h3>Job Title(Optional)</h3>
+                            <input type="text" id="job_title" name="job_title"
+                            required maxlength="30" size="30" value="Job1"
+                            placeholder="Job">
+                        </div>
+                        <div class="col-md-5" id="Email">
+                            <h3>E-mail(Optional)</h3>
+                            <input type="email" name="email", size="30">
+                        </div>
+                        <div class='col-md-3' id="SubmitButtonBox">
+                            <input id="SubmitButton" type="submit" value="Submit" name="Results">
+                        </div>
+                    </div>
+                    <div class="row row-align">
+                        <div class="col-md-4" id="grna">
+                            <h3>gRNA</h3>
+                            <input type="text" id="query_seq" name="query_seq"
+                            required minlength="3" maxlength="25" size="30" 
+                            value="TGGGAGGGCCTGGATGGGGC"
+                            onchange='checkletter(this, "query")'>
+                            <div id="Reference">
+                                <h3>Reference</h3>
+                                {% if gen_ref_list %}
+                                    {% for gen_ref in gen_ref_list %}
+                                        <div class="ref-file-item">
+                                            {% if forloop.first %}
+                                                <input type="radio" id="gen_ref_select" name="gen_ref_select" value="{{ gen_ref.initial }}" checked>
+                                            {% else %}
+                                                <input type="radio" id="gen_ref_select" name="gen_ref_select" value="{{ gen_ref.initial }}">
+                                            {% endif %}
+                                            <label for="gen_ref">{{ gen_ref.initial }}</label>
+                                            <button class="delete-file-button" data-file-path="{{ gen_ref.path }}">Delete</button>
+                                        </div><br>
+                                    {% endfor %}
+                                {% else %}
+                                    <p>No reference</p>
+                                {% endif %}
+                                <!-- File Upload Input -->
+                                <input type="file" name="reference_file" id="reference_file" accept=".fa">
+                                <!--<button type="button" id="upload-button">Upload</button>-->
+                                <div id="progress-container">
+                                    <div id="progress-bar">0%</div>
+                                </div>
+                                <div id="progress-info">
+                                    <span id="upload-speed"></span> | <span id="estimated-time"></span>
+                                </div>
+                                <div id="upload-message"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-8" id="PAM">
+                            <h3>PAM</h3>
+                            <input type="text" id="PAM" name="PAM"
+                            value="NGG" required
+                            onchange='checkletter(this, "PAM")' />
+                            <div>
+                                <h4>PAM code</h4>
+                            <table border="1", class="table table-bordered PAMtable">
+                                <thead>
+                                    <tr>
+                                        <th align="center">A</th>
+                                        <th align="center">C</th>
+                                        <th align="center">G</th>
+                                        <th align="center">T</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td align="center">Adenine</td>
+                                        <td align="center">Cytosine</td>
+                                        <td align="center">Guanine</td>
+                                        <td align="center">Thymine</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table border="1", class="table table-bordered PAMtable">
+                                <thead>
+                                    <tr>
+                                        <th align="center">R</th>
+                                        <th align="center">Y</th>
+                                        <th align="center">S</th>
+                                        <th align="center">W</th>
+                                        <th align="center">K</th>
+                                        <th align="center">M</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td align="center">A or G</td>
+                                        <td align="center">C or T</td>
+                                        <td align="center">G or C</td>
+                                        <td align="center">A or T</td>
+                                        <td align="center">G or T</td>
+                                        <td align="center">A or C</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table border="1", class="table table-bordered PAMtable">
+                                <thead>
+                                    <tr>
+                                        <th align="center">B</th>
+                                        <th align="center">D</th>
+                                        <th align="center">H</th>
+                                        <th align="center">V</th>
+                                        <th align="center">N</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td align="center">C or G or T</td>
+                                        <td align="center">A or G or T</td>
+                                        <td align="center">A or C or T</td>
+                                        <td align="center">A or C or G</td>
+                                        <td align="center">any base</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <br>
+                    <p> Results path in container : {{job_data_path}}</p>
+                    <a href="{% url 'admin:index' %}">admin page</a>
+                </div>
+            </form>
+        </div>
+        <script>
+            const uploadUrl = "{% url 'cas_offinder:upload_file' %}";
+            const deleteUrl = "{% url 'cas_offinder:delete_file' %}";
+        </script>
+    </body>
+</html>

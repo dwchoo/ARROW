@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            ARROW - Allele-specific Recombined sgRNA design for Reduced Off-target With computational profiling
+        </title>
+    </head>
+    <body>
+        <div>
+            <h1>Job is progressing</h1>
+            <a href="{% url 'cas_offinder:results_page' input_info %}">Result : {{input_info.results_url}}</a>
+            <p>Title : {{input_info.job_title}}</p>
+            <p>E-mail : {{input_info.email}}</p>
+            <p>Seq : {{input_info.seq}}</p>
+            <p>Ref : {{input_info.ref}}</p>
+            <p>run_device : {{input_info.run_device}}</p>
+            <p>job_data_path : {{input_info.job_data_path}}</p>
+	    <a href="{% url 'cas_offinder:index' %}">Return index</a>
+        </div>
+    </body>
+</html>

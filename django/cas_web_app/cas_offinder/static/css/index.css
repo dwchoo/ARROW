@@ -1,0 +1,39 @@
+/* body */
+body {
+    padding-left: 0.7%;
+    padding-right:1%;
+}
+
+
+.PAMtable {
+    max-width: 440px;
+    min-width: 330px;
+}
+
+.PAMtable th {
+    text-align: center;
+}
+
+.row_align {
+    display: table;
+    table-layout: fixed;
+}
+.row-align > div {
+    display: table-cell;
+    float: none;
+    vertical-align: top;
+}
+.container {
+    padding-left: 1%;
+    margin-left: 1%;
+}
+
+#SubmitButtonBox {
+    vertical-align: bottom;
+    text-align: left;
+}
+#SubmitButton {
+    height: 60px;
+    width: 100px;
+    font-size: 25px;
+}

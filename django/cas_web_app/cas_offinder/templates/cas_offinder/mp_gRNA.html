@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+    {% load static %}
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/results.js' %}"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/results.css' %}">
+    <head>
+        <!--{% load render_table from django_tables2 %}-->
+        {% load ajax_table %}
+        <title>
+            ARROW - Allele-specific Recombined sgRNA design for Reduced Off-target With computational profiling
+        </title>
+    </head>
+    <body>
+        <h1>Job Results</h1>
+        <div>
+
+            <div class="col-xl-5 col-lg-6" id="job-state">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card widget-flat">
+                            <div class="card-body">
+                                <div class="float-end">
+                                    <i class="mdi mdi-account-multiple widget-icon"></i>
+                                </div>
+                                <h5 class="text-muted fw-normal mt-0">Job title</h5>
+                                <h3 class="mt-3 mb-3">{{job_data.job_title}}</h3>
+                                <p class="mb-0 text-muted">
+                                </p>
+                            </div> <d-body-->
+                        </div> <!-- end card-->
+                    </div> <!-- end col-->
+                
+                    <div class="col-lg-6">
+                        <div class="card widget-flat">
+                            <div class="card-body">
+                                <div class="float-end">
+                                    <i class="mdi mdi-cart-plus widget-icon"></i>
+                                </div>
+                                <h5 class="text-muted fw-normal mt-0">Mispaired gRNA(Rank {{rank}})</h5>
+                                <h3 class="mt-3 mb-3 job-state-seq">{{mp_gRNA}}</h3>
+                                <p class="mb-0 text-muted">
+                                </p>
+                            </div> <!-- end card-body-->
+                        </div> <!-- end card-->
+                    </div> <!-- end col-->
+                </div> <!-- end row -->
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card widget-flat">
+                            <div class="card-body">
+                                <div class="float-end">
+                                    <i class="mdi mdi-currency-usd widget-icon"></i>
+                                </div>
+                                <h5 class="text-muted fw-normal mt-0">Target genome</h5>
+                                <h3 class="mt-3 mb-3">{{job_data.ref}}</h3>
+                                <p class="mb-0 text-muted">
+                                </p>
+                            </div> <!-- end card-body-->
+                        </div> <!-- end card-->
+                    </div> <!-- end col-->
+                    <div class="col-lg-6">
+                        <div class="card widget-flat">
+                            <div class="card-body">
+                                <div class="float-end">
+                                    <i class="mdi mdi-pulse widget-icon"></i>
+                                </div>
+                                <h5 class="text-muted fw-normal mt-0">PAM</h5>
+                                <h3 class="mt-3 mb-3">{{job_data.PAM_type}}</h3>
+                                <p class="mb-0 text-muted">
+                                </p>
+                            </div> <!-- end card-body-->
+                        </div> <!-- end card-->
+                    </div> <!-- end col-->
+                </div> <!-- end row -->
+            </div>
+
+
+
+            <div>
+                <a href="{% url 'cas_offinder:results_page' uuid %}">Return input gRNA</a>
+            </div>
+            <div>
+                <a href="{% url 'cas_offinder:index' %}">Return index</a>
+            </div>
+        </div>
+        <div>
+            <div id="mismatchDistribution">
+                <h3>Candidate cleavage sites for the mispaired gRNA</h3>
+                <div id="cas_offinder_heatmap" class="heatmap">
+                    <p>{{cas_offinder_heatmap|safe}}</p>
+                </div>
+            </div>
+            <h3>Candidate cleavage sites distribution for the mispaired gRNA</h3>
+            <div>
+                <p>{{mismatch_table|safe}}</p>
+            </div>
+            <div>
+                <p>If UCSC link is broken, please check your genome file name in
+                <a href="https://genome.ucsc.edu/FAQ/FAQreleases.html" target="_blank"> 'UCSC genome version list'</a>
+                <span> and change your file name. ex)hg38.fa</span>
+                </p>
+            </div>
+            <h2>Detail</h2>
+            <div id="downloadDetailCSV">
+                <button onclick="window.location.href='{% url 'cas_offinder:MP_gRNA_detail_csv_link' uuid rank %}'">Donwload file</button>
+            </div>
+            <div id="data_table">
+                {% ajax_table "data_table" "cas_offinder:gRNA_detail_page" uuid rank %}
+            </div>
+        </div>
+    </body>
+</html>

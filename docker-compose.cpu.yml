@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+  ARROW:
+    image: ghcr.io/dwchoo/arrow:latest
+    volumes:
+      - ./gen-ref:/gen_ref
+    environment:
+      - REF_DIR=/gen_ref
+      - RESULTS_DIR=/results_dir
+      - GMAIL_ID=False
+      - GMAIL_PW=False
+      - DJANGO_SUPERUSER_EMAIL=xxx@email.com
+      - DJANGO_SUPERUSER_USERNAME=admin
+      - DJANGO_SUPERUSER_PASSWORD=Arrow
+      - TIME_ZONE=UTC
+    ports:
+      - 38080:8080

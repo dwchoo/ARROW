@@ -1,0 +1,125 @@
+/* body */
+body {
+    padding-left: 2%;
+    padding-right:2%;
+}
+#job-state {
+    margin-right:50% !important;
+}
+
+.col-lg-6 {
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.card {
+    background: #f1f3fa;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    margin-bottom: 5%;
+}
+.card-body {
+    padding-right: 2%;
+    padding-left: 2%;
+}
+
+.job-state-seq {
+    font-size: 16px;
+    line-height: 26.39999px;
+}
+
+/* Plotly heatmap size */
+.heatmap {
+    margin:auto;
+    min-width:950px;
+    max-width:1300px;
+}
+/* Plotly plot size */
+.plot {
+    margin:auto;
+    min-width:800px;
+    max-width:1100px;
+}
+
+/* mismatch table */
+.mismatch_table {
+    width: 90%;
+    max-width:1000px;
+    text-align: center;
+    margin : auto;
+}
+.mismatch_table > thead > tr > th{
+    text-align:center;
+
+}
+.MMTableRank{
+    display: table-cell;
+    width: 7%;
+}
+.MMTableSeq{
+    display: table-cell;
+}
+.MMTableMM{
+    display: table-cell;
+    width: 10%;
+}
+.MMTableMMInfo{
+    display: table-cell;
+    width: 15%;
+}
+.MMTableScore{
+    display: table-cell;
+    width: 8%;
+    border-bottom-style: none;
+}
+.MMTableMMs{
+    display: table-cell;
+    width: 20%
+}
+.MMTableMMEach{
+    display: table-cell;
+    width:4%;
+    margin-bottom: 0;
+}
+.MMTableScores{
+    border-top-style: none;
+    
+}
+.mismatch_table > tbody > tr > td:nth-child(2){
+    font-family : "Menlo", monospace;
+}
+
+/* table size */
+#data_table {
+    margin:auto;
+    min-width:740px;
+    max-width:1200px;
+}
+
+/* table header */
+#data_table > div > table > thead > tr > th {
+    text-align: center;
+
+}
+
+/* table component */
+#data_table > div > table > tbody > tr > td {
+    margin:auto;
+    text-align:center;
+    vertical-align:middle;
+}
+
+/* table sequence */
+#data_table > div > table > tbody > tr > td:nth-child(2) {
+    padding-right: 5%;
+    padding-left : 0;
+    font-family : "Menlo", monospace;
+    font-size   : 120%;
+}
+
+/* table page number */
+#data_table > div > nav {
+    text-align:center;
+    
+}
+
