@@ -1,6 +1,5 @@
 # ARROW
-
-This web application displays the results of CAS9 mismatch analysis through a web interface. This README file provides instructions on how to install and run the application.
+### Allele-specific Recombined sgRNA design for Reduced Off-target With computational profiling
 
 ## Quick Start
 
