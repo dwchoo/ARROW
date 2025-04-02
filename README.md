@@ -6,8 +6,22 @@
 This application runs within Docker containers. Ensure you have Docker installed before proceeding.
 
 ![Docker Compose GIF](image/docker_compose.gif)
+1. Download the Application
 
-1.  **Run the Application:** Navigate to the directory containing the `docker-compose.yml` file and execute the following command:
+* Download the source code for running the application. You can clone the GitHub repository using the following command:
+
+    ```bash
+    git clone https://github.com/dwchoo/ARROW.git
+    cd ARROW
+    ```
+* If you only want to download the docker-compose file, please run the command below.
+    ```bash
+    wget https://raw.githubusercontent.com/dwchoo/ARROW/refs/heads/main/docker-compose.yml
+    # If you do not have an Nvidia GPU, you must run it using the CPU version below.
+    # wget https://raw.githubusercontent.com/dwchoo/ARROW/refs/heads/main/docker-compose.cpu.yml
+    ```
+
+2.  **Run the Application:** Navigate to the directory containing the `docker-compose.yml` file and execute the following command:
 
     ```bash
     docker compose up -d
@@ -15,9 +29,7 @@ This application runs within Docker containers. Ensure you have Docker installed
     # docker compose -f docker-compose.cpu.yml up -d
     ```
 
-2.  **Access the Application:** Once the containers are running, open your web browser and go to `http://localhost:38080`.
-
-That's it! You should now be able to use the application.
+3.  **Access the Application:** Once the containers are running, open your web browser and go to `http://localhost:38080`.
 
 **Note:** This Quick Start uses the default configuration, which is optimized for GPU environments.
 
@@ -69,7 +81,7 @@ Download the source code for running the application. You can clone the GitHub r
 
 ```bash
 git clone https://github.com/dwchoo/ARROW.git
-cd CAS9-mismatch-webapp
+cd ARROW
 ```
 
 ### 3. Build the Docker Image
