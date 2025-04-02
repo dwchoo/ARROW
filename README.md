@@ -1,5 +1,5 @@
 # ARROW
-### Allele-specific Recombined sgRNA design for Reduced Off-target With computational profiling
+#### Allele-specific Recombined sgRNA design for Reduced Off-target With computational profiling
 
 ## Quick Start
 
